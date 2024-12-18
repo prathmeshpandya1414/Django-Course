@@ -1,0 +1,86 @@
+(env) PS C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\core> python manage.py shell
+Python 3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from home.models import *
+>>> cars = Car.objects.all()
+>>> cars
+<QuerySet [<Car: BMW>, <Car: Mercedes>, <Car: comet>, <Car: Altroz>]>
+>>> for Car in cars:
+...  print(f"the name of car is {Car.car_name} running at speed of {Car.speed}km/hr.")
+...
+the name of car is BMW running at speed of 190km/hr.
+the name of car is Mercedes running at speed of 150km/hr.
+the name of car is comet running at speed of 80km/hr.
+the name of car is Altroz running at speed of 140km/hr.
+>>>  for Car in cars:
+  File "<console>", line 1
+    for Car in cars:
+IndentationError: unexpected indent
+>>>  for Car in cars:
+  File "<console>", line 1
+    for Car in cars:
+IndentationError: unexpected indent
+>>> for Car in cars:
+...  print(f"{Car.id} The name of car is {Car.car_name} running at speed of {Car.speed}km/hr.")
+...
+1 The name of car is BMW running at speed of 190km/hr.
+2 The name of car is Mercedes running at speed of 150km/hr.
+3 The name of car is comet running at speed of 80km/hr.
+4 The name of car is Altroz running at speed of 140km/hr.
+>>> car = Car.objects.filter(id=1)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\manager.py", line 186, in __get__
+    raise AttributeError(
+AttributeError: Manager isn't accessible via Car instances
+>>>
+KeyboardInterrupt
+>>> from home.models import *
+>>> Car.objects.filter(id=1)
+<QuerySet [<Car: BMW>]>
+>>> Car.objects.filter(id=3)
+<QuerySet [<Car: comet>]>
+>>> Car.objects.filter(id=3).update(car_name="porsche",speed=220)
+1
+>>> Car.objects.all()
+<QuerySet [<Car: BMW>, <Car: Mercedes>, <Car: porsche>, <Car: Altroz>]>
+>>> Car.objects.get(2),delete()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Prathmesh\OneDrive\Desktop\Django_Course\env\Lib\site-packages\django\db\models\sql\query.py", line 1488, in build_filter
+    arg, value = filter_expr
+    ^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+>>>
+KeyboardInterrupt
+>>>
+KeyboardInterrupt
+>>>  Car.objects.get(id=2).delete()
+  File "<console>", line 1
+    Car.objects.get(id=2).delete()
+IndentationError: unexpected indent
+>>> Car.objects.get(id=2).delete()
+(1, {'home.Car': 1})
+>>> Car.objects.all()
+<QuerySet [<Car: BMW>, <Car: porsche>, <Car: Altroz>]>
+>>> exit()
